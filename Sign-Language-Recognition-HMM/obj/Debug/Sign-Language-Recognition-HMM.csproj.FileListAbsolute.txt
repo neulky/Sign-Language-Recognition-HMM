@@ -1,0 +1,1 @@
+G:\GitHubKinect\Sign-Language-Recognition-HMM\Sign-Language-Recognition-HMM\bin\Debug\Sign-Language-Recognition-HMM.exe.config
