@@ -1,1 +1,15 @@
 G:\GitHubKinect\Sign-Language-Recognition-HMM\Sign-Language-Recognition-HMM\bin\Debug\Sign-Language-Recognition-HMM.exe.config
+G:\GitHubKinect\Sign-Language-Recognition-HMM\Sign-Language-Recognition-HMM\obj\Debug\Sign-Language-Recognition-HMM.csprojResolveAssemblyReference.cache
+G:\GitHubKinect\Sign-Language-Recognition-HMM\Sign-Language-Recognition-HMM\bin\Debug\Accord.dll.config
+G:\GitHubKinect\Sign-Language-Recognition-HMM\Sign-Language-Recognition-HMM\bin\Debug\Sign-Language-Recognition-HMM.exe
+G:\GitHubKinect\Sign-Language-Recognition-HMM\Sign-Language-Recognition-HMM\bin\Debug\Sign-Language-Recognition-HMM.pdb
+G:\GitHubKinect\Sign-Language-Recognition-HMM\Sign-Language-Recognition-HMM\bin\Debug\Accord.dll
+G:\GitHubKinect\Sign-Language-Recognition-HMM\Sign-Language-Recognition-HMM\bin\Debug\Accord.Math.Core.dll
+G:\GitHubKinect\Sign-Language-Recognition-HMM\Sign-Language-Recognition-HMM\bin\Debug\Accord.Math.dll
+G:\GitHubKinect\Sign-Language-Recognition-HMM\Sign-Language-Recognition-HMM\bin\Debug\Accord.Statistics.dll
+G:\GitHubKinect\Sign-Language-Recognition-HMM\Sign-Language-Recognition-HMM\bin\Debug\Accord.xml
+G:\GitHubKinect\Sign-Language-Recognition-HMM\Sign-Language-Recognition-HMM\bin\Debug\Accord.Math.xml
+G:\GitHubKinect\Sign-Language-Recognition-HMM\Sign-Language-Recognition-HMM\bin\Debug\Accord.Math.Core.xml
+G:\GitHubKinect\Sign-Language-Recognition-HMM\Sign-Language-Recognition-HMM\bin\Debug\Accord.Statistics.xml
+G:\GitHubKinect\Sign-Language-Recognition-HMM\Sign-Language-Recognition-HMM\obj\Debug\Sign-Language-Recognition-HMM.exe
+G:\GitHubKinect\Sign-Language-Recognition-HMM\Sign-Language-Recognition-HMM\obj\Debug\Sign-Language-Recognition-HMM.pdb
