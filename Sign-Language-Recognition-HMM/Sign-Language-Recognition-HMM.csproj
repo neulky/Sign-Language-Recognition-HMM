@@ -57,7 +57,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="AcquireTestData.cs" />
+    <Compile Include="AcquireTrainData.cs" />
+    <Compile Include="HMM.cs" />
+    <Compile Include="Recognize.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
