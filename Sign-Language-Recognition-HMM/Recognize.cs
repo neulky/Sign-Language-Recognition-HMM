@@ -29,7 +29,7 @@ namespace Sign_Language_Recognition_HMM
             //初始化初始概率矩阵
             double[] probabilites = new double[]
             {
-                0.1, 0.1, 0.2, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1
+                0.1, 0.1, 0.1, 0.1, 0.2, 0.1, 0.1, 0.1, 0.1
             };
             //初始化连续正太分布
             MultivariateNormalDistribution[] mul = new MultivariateNormalDistribution[]
@@ -47,7 +47,7 @@ namespace Sign_Language_Recognition_HMM
 
             HMM Wave_HMM = new HMM(transitions, probabilites, mul);   //创建HMM模型
 
-            Wave_HMM.train(test.train_sequences);                     //训练HMM模型
+            //Wave_HMM.train(test.train_sequences);                     //训练HMM模型
 
             AcquireTestData testData = new AcquireTestData();       //获取待测试序列
             testData.AcquireTestSequences();
