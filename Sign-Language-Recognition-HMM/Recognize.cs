@@ -16,19 +16,20 @@ namespace Sign_Language_Recognition_HMM
             //初始化转移矩阵
             double[,] transitions = new double[,]
             {
-                { 0.1, 0.1, 0.2, 0.1, 0.1, 0.2, 0.1, 0.1 },
-                { 0.1, 0.1, 0.2, 0.1, 0.2, 0.1, 0.1, 0.1 },
-                { 0.2, 0.1, 0.2, 0.1, 0.1, 0.1, 0.1, 0.1 },
-                { 0.1, 0.1, 0.2, 0.1, 0.1, 0.2, 0.1, 0.1 },
-                { 0.1, 0.1, 0.2, 0.1, 0.2, 0.1, 0.1, 0.1 },
-                { 0.2, 0.1, 0.2, 0.1, 0.1, 0.1, 0.1, 0.1 },
-                { 0.1, 0.1, 0.2, 0.1, 0.1, 0.2, 0.1, 0.1 },
-                { 0.1, 0.1, 0.2, 0.1, 0.2, 0.1, 0.1, 0.1 }
+                { 0.1, 0.1, 0.2, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1 },
+                { 0.1, 0.1, 0.2, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1 },
+                { 0.2, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1 },
+                { 0.1, 0.1, 0.2, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1 },
+                { 0.1, 0.1, 0.2, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1 },
+                { 0.2, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1 },
+                { 0.1, 0.1, 0.2, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1 },
+                { 0.1, 0.1, 0.1, 0.1, 0.2, 0.1, 0.1, 0.1, 0.1 },
+                { 0.1, 0.1, 0.1, 0.1, 0.2, 0.1, 0.1, 0.1, 0.1 }
             };
             //初始化初始概率矩阵
             double[] probabilites = new double[]
             {
-                0.1, 0.1, 0.2, 0.1, 0.2, 0.1, 0.1, 0.1
+                0.1, 0.1, 0.2, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1
             };
             //初始化连续正太分布
             MultivariateNormalDistribution[] mul = new MultivariateNormalDistribution[]
@@ -41,6 +42,7 @@ namespace Sign_Language_Recognition_HMM
                 new MultivariateNormalDistribution(dimension: 2),
                 new MultivariateNormalDistribution(dimension: 2),
                 new MultivariateNormalDistribution(dimension: 2),
+                new MultivariateNormalDistribution(dimension: 2)
             };
 
             HMM Wave_HMM = new HMM(transitions, probabilites, mul);   //创建HMM模型

@@ -97,8 +97,8 @@ namespace Sign_Language_Recognition_HMM
                 );
             var teacher = new BaumWelchLearning<MultivariateNormalDistribution, double[]>(model)
             {
-                Tolerance = 0.0001,
-                Iterations = 0, 
+                Tolerance = 0.00000001,
+                Iterations = 0,
                 FittingOptions = new NormalOptions()
                 {
                     Regularization = 1e-5
@@ -106,6 +106,13 @@ namespace Sign_Language_Recognition_HMM
             };
 
             teacher.Learn(seq);
+
+            double[] weights = teacher.LogWeights;
+            Console.WriteLine("weights:");
+            for(int i = 0;i < weights.Length;i++)
+            {
+                Console.Write("{0} ", weights[i]);
+            }
 
             double mean1 = hmm_mul[0].Mean[0];
             double mean2 = hmm_mul[1].Mean[0];
@@ -119,12 +126,17 @@ namespace Sign_Language_Recognition_HMM
             Console.WriteLine("{0} {1} ", a[1, 0], a[1, 1]);
 
             string file = "G:\\GitHubKinect\\HMM_Model\\HMM_Model\\wave.txt";
-            SaveToFile(file,model);
+            SaveToFile(file, model);
+
+            double likelihood = Math.Exp(teacher.LogLikelihood);
+            Console.WriteLine("log_p = {0}", likelihood);
+            Console.WriteLine();
+            Console.WriteLine();
 
             double[][] A = model.LogTransitions;
-            for(int i=0;i<A.Length;i++)
+            for (int i = 0; i < A.Length; i++)
             {
-                for(int j=0;j<A[i].Length;j++)
+                for (int j = 0; j < A[i].Length; j++)
                 {
                     Console.Write("{0}  ", Math.Exp(A[i][j]));
                 }
@@ -136,7 +148,7 @@ namespace Sign_Language_Recognition_HMM
             Console.WriteLine();
 
             double[] I = model.LogInitial;
-            for(int i=0;i<I.Length;i++)
+            for (int i = 0; i < I.Length; i++)
             {
                 Console.Write("{0}  ", Math.Exp(I[i]));
             }
@@ -144,9 +156,9 @@ namespace Sign_Language_Recognition_HMM
             Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine();
-            
+
         }
-        
+
         public void recognize(double[][] recognize_seq)
         {
             string file = "G:\\GitHubKinect\\HMM_Model\\HMM_Model\\wave.txt";
@@ -154,7 +166,7 @@ namespace Sign_Language_Recognition_HMM
 
             int[] States = model.Decide(recognize_seq);          //输出待测序列的隐含状态
 
-            for(int i = 0;i < States.Length;i++)
+            for (int i = 0; i < States.Length; i++)
             {
                 System.Console.Write("{0} ", States[i]);
             }
