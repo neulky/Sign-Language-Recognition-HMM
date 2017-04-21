@@ -48,6 +48,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Accord.Statistics.3.4.0\lib\net45\Accord.Statistics.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Kinect, Version=1.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -59,6 +60,7 @@
   <ItemGroup>
     <Compile Include="AcquireTestData.cs" />
     <Compile Include="AcquireTrainData.cs" />
+    <Compile Include="KinectData.cs" />
     <Compile Include="HMM.cs" />
     <Compile Include="Recognize.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

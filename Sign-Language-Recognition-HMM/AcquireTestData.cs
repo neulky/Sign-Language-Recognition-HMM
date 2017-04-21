@@ -14,7 +14,7 @@ namespace Sign_Language_Recognition_HMM
         public void AcquireTestSequences()
         {
 
-            string txtFiles = "G:\\GitHubKinect\\HMM_Model\\Right_Test_Data\\_9.txt";
+            string txtFiles = "G:\\GitHubKinect\\HMM_Model\\Right_Test_Data\\test\\_0.txt";    //获取待测试数据
            
             List<double[]> sequence = new List<double[]>();
 

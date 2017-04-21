@@ -52,7 +52,18 @@ namespace Sign_Language_Recognition_HMM
             AcquireTestData testData = new AcquireTestData();       //获取待测试序列
             testData.AcquireTestSequences();
 
+            //KinectData kinectData = new KinectData();
+            //kinectData.GetKinectData();
+
+            //for(int i = 0;i < kinectData.kinectdata_seq[1].Length;i++)
+            //{
+            //    Console.WriteLine("({0},{1})",kinectData.kinectdata_seq[1][i][0],kinectData.kinectdata_seq[1][i][1]);
+            //}
+            
+            //double[][][] recognition_sequences = kinectData.kinectdata_seq;
+            //Wave_HMM.recognize(recognition_sequences[1]);            //测试概率大小
             Wave_HMM.recognize(testData.test_sequences);            //测试概率大小
+            
 
         }
         

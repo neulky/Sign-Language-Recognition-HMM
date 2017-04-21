@@ -125,7 +125,7 @@ namespace Sign_Language_Recognition_HMM
             Console.WriteLine("{0} {1} ", a[0, 0], a[0, 1]);
             Console.WriteLine("{0} {1} ", a[1, 0], a[1, 1]);
 
-            string file = "G:\\GitHubKinect\\HMM_Model\\HMM_Model\\9.txt";
+            string file = "G:\\GitHubKinect\\HMM_Model\\HMM_Model\\9.txt";       //将训练得到的模型存入指定的文档中
             SaveToFile(file, model);
 
             double likelihood = Math.Exp(teacher.LogLikelihood);
@@ -161,21 +161,23 @@ namespace Sign_Language_Recognition_HMM
 
         public void recognize(double[][] recognize_seq)
         {
-            //string file = "G:\\GitHubKinect\\HMM_Model\\HMM_Model\\0.txt";
+            //string file = "G:\\GitHubKinect\\HMM_Model\\HMM_Model\\test.txt";
             //HiddenMarkovModel<MultivariateNormalDistribution, double[]> model = CreateFromFile(file);  //取出训练好的模型
 
-            string sourceDirectory = "G:\\GitHubKinect\\HMM_Model\\HMM_Model";
+            //double a = Math.Exp(model.LogLikelihood(recognize_seq));
+            //Console.WriteLine("a = {0}", a);
+            string sourceDirectory = "G:\\GitHubKinect\\HMM_Model\\HMM_Model";       //打开存放模型文件的文件夹
             var txtFiles = Directory.EnumerateFiles(sourceDirectory, "*.txt");
 
             int count = 0;
-            HiddenMarkovModel<MultivariateNormalDistribution, double[]>[] models = new HiddenMarkovModel<MultivariateNormalDistribution,double[]>[10];
-            foreach(string currentFile in txtFiles)
+            HiddenMarkovModel<MultivariateNormalDistribution, double[]>[] models = new HiddenMarkovModel<MultivariateNormalDistribution, double[]>[10];
+            foreach (string currentFile in txtFiles)
             {
                 models[count] = CreateFromFile(currentFile);
                 count++;
             }
 
-            for(int i = 0;i < count;i++)
+            for (int i = 0; i < count; i++)
             {
                 int[] States = models[i].Decide(recognize_seq);          //输出待测序列的隐含状态
 
@@ -192,23 +194,23 @@ namespace Sign_Language_Recognition_HMM
 
             double max = 0;
             int model_flag = 0;
-            for (int i = 0; i < count;i++)
+            for (int i = 0; i < count; i++)
             {
                 double p = Math.Exp(models[i].LogLikelihood(recognize_seq));   //输出待测序列的可能性
-                if(i == 0)
+                if (i == 0)
                 {
                     max = p;
                 }
                 else
                 {
-                    if(max < p)
+                    if (max < p)
                     {
                         max = p;
                         model_flag = i;
                     }
                 }
                 System.Console.WriteLine("model {0}: {1}", i, p);
-            
+
             }
 
             Console.WriteLine("识别结果为：{0}", model_flag);
