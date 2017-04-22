@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="AcquireTestData.cs" />
     <Compile Include="AcquireTrainData.cs" />
+    <Compile Include="connect\Server.cs" />
     <Compile Include="KinectData.cs" />
     <Compile Include="HMM.cs" />
     <Compile Include="Recognize.cs" />

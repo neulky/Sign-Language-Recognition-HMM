@@ -159,7 +159,7 @@ namespace Sign_Language_Recognition_HMM
 
         }
 
-        public void recognize(double[][] recognize_seq)
+        public string recognize(double[][] recognize_seq)
         {
             //string file = "G:\\GitHubKinect\\HMM_Model\\HMM_Model\\test.txt";
             //HiddenMarkovModel<MultivariateNormalDistribution, double[]> model = CreateFromFile(file);  //取出训练好的模型
@@ -210,15 +210,9 @@ namespace Sign_Language_Recognition_HMM
                     }
                 }
                 System.Console.WriteLine("model {0}: {1}", i, p);
-
             }
-
-            Console.WriteLine("识别结果为：{0}", model_flag);
-
-
-
-            
-
+            //Console.WriteLine("识别结果为：{0}", model_flag);
+            return model_flag.ToString();
         }
     }
 }

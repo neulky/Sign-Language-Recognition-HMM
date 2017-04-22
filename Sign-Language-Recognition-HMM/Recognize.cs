@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Accord.Statistics.Distributions.Multivariate;
+using Sign_Language_Recognition_HMM.connect;
 
 namespace Sign_Language_Recognition_HMM
 {
@@ -62,9 +63,14 @@ namespace Sign_Language_Recognition_HMM
             
             //double[][][] recognition_sequences = kinectData.kinectdata_seq;
             //Wave_HMM.recognize(recognition_sequences[1]);            //测试概率大小
-            Wave_HMM.recognize(testData.test_sequences);            //测试概率大小
             
+            //Wave_HMM.recognize(testData.test_sequences);            //测试概率大小
 
+            Server server = new Server();
+            server.connect();
+            
+            string result = Wave_HMM.recognize(server.receiveMessage());
+            Console.WriteLine("识别结果为：{0}", result);
         }
         
     }
