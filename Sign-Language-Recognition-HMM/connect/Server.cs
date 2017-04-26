@@ -31,7 +31,7 @@ namespace Sign_Language_Recognition_HMM.connect
             
         }
         
-        public double[][] receiveMessage()        //接收数据
+        public double[][] receiveMessage()         //接收数据
         {
             double[][] recognize_seq;
             string recStr = "";
