@@ -50,27 +50,28 @@ namespace Sign_Language_Recognition_HMM
 
             //Wave_HMM.train(test.train_sequences);                     //训练HMM模型
 
-            AcquireTestData testData = new AcquireTestData();       //获取待测试序列
-            testData.AcquireTestSequences();
-
-            //KinectData kinectData = new KinectData();
+            //KinectData kinectData = new KinectData();               //有一个版本是通过C#编写的代码直接获取手坐标
             //kinectData.GetKinectData();
+            //double[][][] recognition_sequences = kinectData.kinectdata_seq;      
+            //Wave_HMM.recognize(recognition_sequences[1]);            
 
-            //for(int i = 0;i < kinectData.kinectdata_seq[1].Length;i++)
-            //{
-            //    Console.WriteLine("({0},{1})",kinectData.kinectdata_seq[1][i][0],kinectData.kinectdata_seq[1][i][1]);
-            //}
-            
-            //double[][][] recognition_sequences = kinectData.kinectdata_seq;
-            //Wave_HMM.recognize(recognition_sequences[1]);            //测试概率大小
-            
-            //Wave_HMM.recognize(testData.test_sequences);            //测试概率大小
 
-            Server server = new Server();
+            //AcquireTestData testData = new AcquireTestData();       //有一个版本为读取文件中的测试数据 
+            //testData.AcquireTestSequences();
+            //string result = Wave_HMM.recognize(testData.test_sequences);          
+            //Console.WriteLine("识别结果为：{0}", result);
+
+            Server server = new Server();             //打开该服务器，获取客户端传来的数据
             server.connect();
-            
             string result = Wave_HMM.recognize(server.receiveMessage());
+            server.sendMessage(result);          //将识别结果返回客户端
+            
             Console.WriteLine("识别结果为：{0}", result);
+
+            server.Close();    //关闭连接
+
+
+
         }
         
     }

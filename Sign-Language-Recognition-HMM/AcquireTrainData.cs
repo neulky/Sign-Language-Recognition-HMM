@@ -56,7 +56,7 @@ namespace Sign_Language_Recognition_HMM
                 {
                     for (int k = 0; k < sequences[i][j].Length; k++)
                     {
-                        temp_sequenses[i][j][k] = sequences[i][j][k];
+                        temp_sequenses[i][j][k] = sequences[i][j][k] / 100;
                     }
                 }
             }

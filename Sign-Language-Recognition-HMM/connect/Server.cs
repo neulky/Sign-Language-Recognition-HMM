@@ -26,8 +26,7 @@ namespace Sign_Language_Recognition_HMM.connect
             sSocket.Listen(0);
             Console.WriteLine("监听已经打开，请等待");
 
-            //receive message
-            serverSocket = sSocket.Accept();
+            serverSocket = sSocket.Accept();        //建立连接
             Console.WriteLine("连接已经建立");
             
         }
@@ -75,7 +74,7 @@ namespace Sign_Language_Recognition_HMM.connect
                 recSequence[i] = new double[sequence[i].Length];
                 for(int j = 0;j < sequence[i].Length;j++)
                 {
-                    recSequence[i][j] = sequence[i][j];
+                    recSequence[i][j] = sequence[i][j] / 100;
                 }
             }
             return recSequence;

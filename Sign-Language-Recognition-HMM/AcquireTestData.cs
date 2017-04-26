@@ -14,7 +14,7 @@ namespace Sign_Language_Recognition_HMM
         public void AcquireTestSequences()
         {
 
-            string txtFiles = "G:\\GitHubKinect\\HMM_Model\\Right_Test_Data\\test\\_0.txt";    //获取待测试数据
+            string txtFiles = "G:\\GitHubKinect\\HMM_Model\\Right_Test_Data\\_5.txt";    //获取待测试数据
            
             List<double[]> sequence = new List<double[]>();
 
@@ -43,7 +43,7 @@ namespace Sign_Language_Recognition_HMM
             {
                 for(int j = 0;j <sequence[i].Length;j++)
                 {
-                    temp_sequenses[i][j] = sequence[i][j];
+                    temp_sequenses[i][j] = sequence[i][j] / 100;
                 }
             }
 
