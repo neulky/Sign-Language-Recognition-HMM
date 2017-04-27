@@ -44,51 +44,6 @@ namespace Sign_Language_Recognition_HMM
         }
         public void train(double[][][] seq)
         {
-            double[][][] sequences =
-            {
-                new double[][] // sequence 1
-                {
-                    new double[] { 1.0, 2.1 },
-                    new double[] { 3.1, 4.1 }, // observation 2 of sequence 1
-                    new double[] { 5.2, 6.2 }, // observation 3 of sequence 1
-                    new double[] { 1.3, 2.3 }, // observation 1 of sequence 1
-                    new double[] { 3.1, 4.2 }, // observation 2 of sequence 1
-                    new double[] { 5.3, 6.1 }, // observation 3 of sequence 1
-                    new double[] { 1.3, 2.3 }, // observation 1 of sequence 1
-                    new double[] { 3.1, 4.2 }, // observation 2 of sequence 1
-                    new double[] { 5.3, 6.1 }, // observation 3 of sequence 1
-                },
-                new double[][] // sequence 1
-                {
-                    new double[] { 3.1, 4.0 }, // observation 2 of sequence 1
-                    new double[] { 5.2, 6.2 }, // observation 3 of sequence 1
-                    new double[] { 1.1, 2.2 }, // observation 1 of sequence 1
-                    new double[] { 3.2, 4.2 }, // observation 2 of sequence 1
-                    new double[] { 5.1, 6.1 }, // observation 3 of sequence 1
-                    new double[] { 1.1, 2.2 }, // observation 1 of sequence 1
-                    new double[] { 3.1, 4.2 }, // observation 2 of sequence 1
-                    new double[] { 5.3, 6.2 }, // observation 3 of sequence 1
-                },
-                new double[][] // sequence 1
-                {
-                    new double[] { 3.0, 4.0 },
-                    new double[] { 5.1, 6.1 }, // observation 3 of sequence 1
-                    new double[] { 1.2, 2.2 }, // observation 1 of sequence 1
-                    new double[] { 3.1, 4.3 }, // observation 2 of sequence 1
-                    new double[] { 5.1, 6.2 }, // observation 3 of sequence 1
-                    new double[] { 1.4, 2.5 }, // observation 1 of sequence 1
-                    new double[] { 3.4, 4.5 }, // observation 2 of sequence 1
-                    new double[] { 5.4, 6.2 }, // observation 3 of sequence 1
-                },
-            };
-
-            MultivariateNormalDistribution[] mul = new MultivariateNormalDistribution[]
-            {
-                new MultivariateNormalDistribution(dimension: 2),
-                new MultivariateNormalDistribution(dimension: 2),
-                new MultivariateNormalDistribution(dimension: 2)
-            };
-
             var model = new HiddenMarkovModel<MultivariateNormalDistribution, double[]>(
                 transitions: hmm_transitions,
                 emissions: hmm_mul,
@@ -107,13 +62,6 @@ namespace Sign_Language_Recognition_HMM
 
             teacher.Learn(seq);
 
-            double[] weights = teacher.LogWeights;
-            Console.WriteLine("weights:");
-            for(int i = 0;i < weights.Length;i++)
-            {
-                Console.Write("{0} ", weights[i]);
-            }
-
             double mean1 = hmm_mul[0].Mean[0];
             double mean2 = hmm_mul[1].Mean[0];
 
@@ -125,7 +73,7 @@ namespace Sign_Language_Recognition_HMM
             Console.WriteLine("{0} {1} ", a[0, 0], a[0, 1]);
             Console.WriteLine("{0} {1} ", a[1, 0], a[1, 1]);
 
-            string file = "G:\\GitHubKinect\\HMM_Model\\HMM_Model\\9.txt";       //将训练得到的模型存入指定的文档中
+            string file = "G:\\GitHubKinect\\HMM_Model_3\\HMM_Model\\2.txt";       //将训练得到的模型存入指定的文档中
             SaveToFile(file, model);
 
             double likelihood = Math.Exp(teacher.LogLikelihood);
@@ -161,12 +109,7 @@ namespace Sign_Language_Recognition_HMM
 
         public string recognize(double[][] recognize_seq)
         {
-            //string file = "G:\\GitHubKinect\\HMM_Model\\HMM_Model\\test.txt";
-            //HiddenMarkovModel<MultivariateNormalDistribution, double[]> model = CreateFromFile(file);  //取出训练好的模型
-
-            //double a = Math.Exp(model.LogLikelihood(recognize_seq));
-            //Console.WriteLine("a = {0}", a);
-            string sourceDirectory = "G:\\GitHubKinect\\HMM_Model\\HMM_Model";       //打开存放模型文件的文件夹
+            string sourceDirectory = "G:\\GitHubKinect\\HMM_Model_3\\HMM_Model";       //打开存放模型文件的文件夹
             var txtFiles = Directory.EnumerateFiles(sourceDirectory, "*.txt");
 
             int count = 0;
@@ -211,7 +154,6 @@ namespace Sign_Language_Recognition_HMM
                 }
                 System.Console.WriteLine("model {0}: {1}", i, p);
             }
-            //Console.WriteLine("识别结果为：{0}", model_flag);
             return model_flag.ToString();
         }
     }

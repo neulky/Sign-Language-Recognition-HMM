@@ -17,33 +17,27 @@ namespace Sign_Language_Recognition_HMM
             //初始化转移矩阵
             double[,] transitions = new double[,]
             {
-                { 0.1, 0.1, 0.2, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1 },
-                { 0.1, 0.1, 0.2, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1 },
-                { 0.2, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1 },
-                { 0.1, 0.1, 0.2, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1 },
-                { 0.1, 0.1, 0.2, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1 },
-                { 0.2, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1 },
-                { 0.1, 0.1, 0.2, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1 },
-                { 0.1, 0.1, 0.1, 0.1, 0.2, 0.1, 0.1, 0.1, 0.1 },
-                { 0.1, 0.1, 0.1, 0.1, 0.2, 0.1, 0.1, 0.1, 0.1 }
+                { 0.1, 0.1, 0.2, 0.1, 0.1, 0.4 },
+                { 0.1, 0.1, 0.2, 0.1, 0.1, 0.4 },
+                { 0.2, 0.1, 0.1, 0.1, 0.2, 0.3 },
+                { 0.1, 0.1, 0.2, 0.1, 0.2, 0.3 },
+                { 0.1, 0.1, 0.2, 0.1, 0.1, 0.4 },
+                { 0.2, 0.1, 0.1, 0.1, 0.1, 0.4 }
             };
             //初始化初始概率矩阵
             double[] probabilites = new double[]
             {
-                0.1, 0.1, 0.1, 0.1, 0.2, 0.1, 0.1, 0.1, 0.1
+                0.1, 0.1, 0.1, 0.1, 0.2, 0.4
             };
             //初始化连续正太分布
             MultivariateNormalDistribution[] mul = new MultivariateNormalDistribution[]
             {
-                new MultivariateNormalDistribution(dimension: 2),
-                new MultivariateNormalDistribution(dimension: 2),
-                new MultivariateNormalDistribution(dimension: 2),
-                new MultivariateNormalDistribution(dimension: 2),
-                new MultivariateNormalDistribution(dimension: 2),
-                new MultivariateNormalDistribution(dimension: 2),
-                new MultivariateNormalDistribution(dimension: 2),
-                new MultivariateNormalDistribution(dimension: 2),
-                new MultivariateNormalDistribution(dimension: 2)
+                new MultivariateNormalDistribution(dimension: 3),
+                new MultivariateNormalDistribution(dimension: 3),
+                new MultivariateNormalDistribution(dimension: 3),
+                new MultivariateNormalDistribution(dimension: 3),
+                new MultivariateNormalDistribution(dimension: 3),
+                new MultivariateNormalDistribution(dimension: 3)
             };
 
             HMM Wave_HMM = new HMM(transitions, probabilites, mul);   //创建HMM模型
@@ -65,7 +59,7 @@ namespace Sign_Language_Recognition_HMM
             server.connect();
             string result = Wave_HMM.recognize(server.receiveMessage());
             server.sendMessage(result);          //将识别结果返回客户端
-            
+
             Console.WriteLine("识别结果为：{0}", result);
 
             server.Close();    //关闭连接

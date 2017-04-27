@@ -14,7 +14,7 @@ namespace Sign_Language_Recognition_HMM
         public void AcquireModelSequences()
         {
             
-            string sourceDirectory = "G:\\GitHubKinect\\HMM_Model\\Right_Train_Data\\9";      //打开即将要训练的存放训练数据的文件夹
+            string sourceDirectory = "G:\\GitHubKinect\\HMM_Model_3\\Right_Train_Data\\2";      //打开即将要训练的存放训练数据的文件夹
             var txtFiles = Directory.EnumerateFiles(sourceDirectory, "*.txt");
 
             List<List<double[]>> sequences = new List<List<double[]>>();   //训练序列
@@ -29,8 +29,6 @@ namespace Sign_Language_Recognition_HMM
                 double[] double_point;
                 for(int i = 0;i < result.Length - 1;i++)
                 {
-                    //System.Console.WriteLine("{0} {1}", result[i],i);
-
                     double_point = Array.ConvertAll(result[i].Split(','), Double.Parse);
                     sequence.Add(double_point);
 
