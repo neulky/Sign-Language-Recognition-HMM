@@ -73,7 +73,7 @@ namespace Sign_Language_Recognition_HMM
             Console.WriteLine("{0} {1} ", a[0, 0], a[0, 1]);
             Console.WriteLine("{0} {1} ", a[1, 0], a[1, 1]);
 
-            string file = "G:\\GitHubKinect\\HMM_Model_3\\HMM_Model\\2.txt";       //将训练得到的模型存入指定的文档中
+            string file = "G:\\GitHubKinect\\HMM_Model_3\\HMM_Model\\你\\righthand.txt";       //将训练得到的模型存入指定的文档中
             SaveToFile(file, model);
 
             double likelihood = Math.Exp(teacher.LogLikelihood);
@@ -107,54 +107,80 @@ namespace Sign_Language_Recognition_HMM
 
         }
 
-        public string recognize(double[][] recognize_seq)
+        public string recognize(double[][][] recognize_seq)     //从这里编写
         {
+            int handFlag = 2;     //默认为2；handFlag = 1表示只有一只手参加该手语，handFlag = 2表示两只手同时参加了该手语
+            if(recognize_seq[0].Length == 0 || recognize_seq[1].Length == 0)
+                handFlag = 1;
+
             string sourceDirectory = "G:\\GitHubKinect\\HMM_Model_3\\HMM_Model";       //打开存放模型文件的文件夹
-            var txtFiles = Directory.EnumerateFiles(sourceDirectory, "*.txt");
-
-            int count = 0;
-            HiddenMarkovModel<MultivariateNormalDistribution, double[]>[] models = new HiddenMarkovModel<MultivariateNormalDistribution, double[]>[10];
-            foreach (string currentFile in txtFiles)
+            
+            List<string> modelNames = new List<string>();
+            List<double> modelRecognitionResults = new List<double>();
+            
+            var directorys = Directory.EnumerateDirectories(sourceDirectory);
+            int modelCount = 0;
+            foreach (string currentDirectory in directorys)
             {
-                models[count] = CreateFromFile(currentFile);
-                count++;
-            }
-
-            for (int i = 0; i < count; i++)
-            {
-                int[] States = models[i].Decide(recognize_seq);          //输出待测序列的隐含状态
-
-                for (int j = 0; j < States.Length; j++)
+                var txtFiles = Directory.EnumerateFiles(currentDirectory, "*.txt");
+                if (txtFiles.Count() == handFlag)     //如果该模板与待识别手语都使用一只手或两只手，则进行进一步匹配
                 {
-                    System.Console.Write("{0} ", States[j]);
+                    HiddenMarkovModel<MultivariateNormalDistribution, double[]>[] models = new HiddenMarkovModel<MultivariateNormalDistribution, double[]>[txtFiles.Count()];
+                    int count = 0;
+                    foreach(string currentFile in txtFiles)
+                    {
+                        models[count] = CreateFromFile(currentFile);
+                        count++;
+                    }
+                    double result = 0;
+
+                    if(handFlag == 1)
+                    {
+                        result = Math.Exp(models[0].LogLikelihood(recognize_seq[1]));     //只有一只手参与该手语 默认为右手
+
+                        int[] states= models[0].Decide(recognize_seq[1]);
+                        for(int i = 0;i < states.Length;i++)
+                        {
+                            Console.Write("{0} ", states[i]);
+                        }
+                        Console.WriteLine();
+                    }
+                    if(handFlag == 2)
+                    {
+                        result = Math.Exp(models[0].LogLikelihood(recognize_seq[0]))
+                            + Math.Exp(models[1].LogLikelihood(recognize_seq[1]));
+                        int[] states0 = models[0].Decide(recognize_seq[0]);
+                        int[] states1 = models[1].Decide(recognize_seq[1]);
+                        for(int i = 0;i < states0.Length;i++)
+                        {
+                            Console.Write("{0} ", states0[i]);
+                        }
+                        Console.WriteLine(Math.Exp(models[0].LogLikelihood(recognize_seq[0])));
+                        for(int i = 0;i < states1.Length;i++)
+                        {
+                            Console.Write("{0} ", states1[i]);
+                        }
+                        Console.WriteLine(Math.Exp(models[1].LogLikelihood(recognize_seq[1])));
+                        
+                    }
+                    Console.WriteLine("model {0}:{1}", currentDirectory, result);
+                    modelNames.Add(currentDirectory.Substring(currentDirectory.LastIndexOf("\\") + 1));    //将该手语名称加入数组
+                    modelRecognitionResults.Add(result);   //将对应的匹配率加入数组
                 }
-
-                System.Console.WriteLine();
+                modelCount++;
             }
-
-            System.Console.WriteLine();
-            System.Console.WriteLine();
 
             double max = 0;
             int model_flag = 0;
-            for (int i = 0; i < count; i++)
+            for(int i = 0;i < modelRecognitionResults.Count;i++)
             {
-                double p = Math.Exp(models[i].LogLikelihood(recognize_seq));   //输出待测序列的可能性
-                if (i == 0)
+                if (max < modelRecognitionResults[i])
                 {
-                    max = p;
+                    max = modelRecognitionResults[i];
+                    model_flag = i;
                 }
-                else
-                {
-                    if (max < p)
-                    {
-                        max = p;
-                        model_flag = i;
-                    }
-                }
-                System.Console.WriteLine("model {0}: {1}", i, p);
             }
-            return model_flag.ToString();
+            return modelNames[model_flag];
         }
     }
 }

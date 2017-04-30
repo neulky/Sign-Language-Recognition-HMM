@@ -17,21 +17,27 @@ namespace Sign_Language_Recognition_HMM
             //初始化转移矩阵
             double[,] transitions = new double[,]
             {
-                { 0.1, 0.1, 0.2, 0.1, 0.1, 0.4 },
-                { 0.1, 0.1, 0.2, 0.1, 0.1, 0.4 },
-                { 0.2, 0.1, 0.1, 0.1, 0.2, 0.3 },
-                { 0.1, 0.1, 0.2, 0.1, 0.2, 0.3 },
-                { 0.1, 0.1, 0.2, 0.1, 0.1, 0.4 },
-                { 0.2, 0.1, 0.1, 0.1, 0.1, 0.4 }
+                { 0.1, 0.1, 0.2, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1 },
+                { 0.1, 0.1, 0.2, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1 },
+                { 0.2, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1 },
+                { 0.1, 0.1, 0.2, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1 },
+                { 0.1, 0.1, 0.2, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1 },
+                { 0.2, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1 },
+                { 0.1, 0.1, 0.2, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1 },
+                { 0.1, 0.1, 0.1, 0.1, 0.2, 0.1, 0.1, 0.1, 0.1 },
+                { 0.1, 0.1, 0.1, 0.1, 0.2, 0.1, 0.1, 0.1, 0.1 }
             };
             //初始化初始概率矩阵
             double[] probabilites = new double[]
             {
-                0.1, 0.1, 0.1, 0.1, 0.2, 0.4
+                0.1, 0.1, 0.1, 0.1, 0.2, 0.1, 0.1, 0.1, 0.1
             };
             //初始化连续正太分布
             MultivariateNormalDistribution[] mul = new MultivariateNormalDistribution[]
             {
+                new MultivariateNormalDistribution(dimension: 3),
+                new MultivariateNormalDistribution(dimension: 3),
+                new MultivariateNormalDistribution(dimension: 3),
                 new MultivariateNormalDistribution(dimension: 3),
                 new MultivariateNormalDistribution(dimension: 3),
                 new MultivariateNormalDistribution(dimension: 3),
@@ -49,15 +55,15 @@ namespace Sign_Language_Recognition_HMM
             //double[][][] recognition_sequences = kinectData.kinectdata_seq;      
             //Wave_HMM.recognize(recognition_sequences[1]);            
 
-
             //AcquireTestData testData = new AcquireTestData();       //有一个版本为读取文件中的测试数据 
             //testData.AcquireTestSequences();
-            //string result = Wave_HMM.recognize(testData.test_sequences);          
+            //string result = Wave_HMM.recognize(testData.test_sequences);
             //Console.WriteLine("识别结果为：{0}", result);
 
             Server server = new Server();             //打开该服务器，获取客户端传来的数据
             server.connect();
             string result = Wave_HMM.recognize(server.receiveMessage());
+
             server.sendMessage(result);          //将识别结果返回客户端
 
             Console.WriteLine("识别结果为：{0}", result);

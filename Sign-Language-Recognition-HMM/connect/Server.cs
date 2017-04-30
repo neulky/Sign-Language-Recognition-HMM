@@ -31,22 +31,22 @@ namespace Sign_Language_Recognition_HMM.connect
             
         }
         
-        public double[][] receiveMessage()         //接收数据
+        public double[][][] receiveMessage()         //接收数据
         {
-            double[][] recognize_seq;
+            double[][][] recognize_seq;
             string recStr = "";
             byte[] recByte = new byte[4096];
             int bytes = serverSocket.Receive(recByte, recByte.Length, 0);
             recStr += Encoding.ASCII.GetString(recByte, 0, bytes);
 
-            Console.WriteLine("{0}", recStr);
+            //Console.WriteLine("{0}", recStr);
 
             recognize_seq = transitionFromStringToDouble(recStr);       //将接收到的的字符串转换为double[][]数组
             return recognize_seq;
         }
         public void sendMessage(string sendStr)
         {
-            byte[] sendByte = Encoding.ASCII.GetBytes(sendStr);
+            byte[] sendByte = Encoding.UTF8.GetBytes(sendStr);
             serverSocket.Send(sendByte, sendByte.Length, 0);
         }
         public void Close()
@@ -54,27 +54,46 @@ namespace Sign_Language_Recognition_HMM.connect
             serverSocket.Close();
             sSocket.Close();
         }
-        public double[][] transitionFromStringToDouble(string recStr)
+        public double[][][] transitionFromStringToDouble(string recStr)
         {
-            double[][] recSequence;
-            List<double[]> sequence = new List<double[]>();
-
-            string[] point = recStr.Split('@');
+            double[][][] recSequence;
+            List<List<double[]>> sequences = new List<List<double[]>>();
 
             double[] double_point;
-            for (int i = 0; i < point.Length - 1;i++)
+            string[] hand = recStr.Split('#');
+            string[][] point = new string[hand.Length][];
+            Console.WriteLine(hand.Length);
+            //for (int i = 0; i < hand.Length;i++)
+            //{
+            //    Console.WriteLine(hand[i]);
+            //}
+
+            for (int i = 0; i < hand.Length; i++)
             {
-                double_point = Array.ConvertAll(point[i].Split(','), Double.Parse);
-                sequence.Add(double_point);
+                List<double[]> sequence = new List<double[]>();
+                point[i] = hand[i].Split('@');
+                if(hand[i] != null)
+                {
+                    for (int j = 0; j < point[i].Length - 1;j++)
+                    {
+                        double_point = Array.ConvertAll(point[i][j].Split(','), Double.Parse);
+                        sequence.Add(double_point);
+                    }
+                }
+                sequences.Add(sequence);
             }
 
-            recSequence = new double[sequence.Count][];
-            for (int i = 0; i < sequence.Count;i++)
+            recSequence = new double[sequences.Count][][];
+            for (int i = 0; i < sequences.Count;i++)
             {
-                recSequence[i] = new double[sequence[i].Length];
-                for(int j = 0;j < sequence[i].Length;j++)
+                recSequence[i] = new double[sequences[i].Count][];
+                for(int j = 0;j < sequences[i].Count;j++)
                 {
-                    recSequence[i][j] = sequence[i][j] / 100;
+                    recSequence[i][j] = new double[sequences[i][j].Length];
+                    for(int k = 0;k < sequences[i][j].Length;k++)
+                    {
+                        recSequence[i][j][k] = sequences[i][j][k];
+                    }
                 }
             }
             return recSequence;
