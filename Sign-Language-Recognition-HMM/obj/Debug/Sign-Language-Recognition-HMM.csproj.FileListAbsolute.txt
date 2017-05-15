@@ -13,3 +13,5 @@ G:\GitHubKinect\Sign-Language-Recognition-HMM\Sign-Language-Recognition-HMM\bin\
 G:\GitHubKinect\Sign-Language-Recognition-HMM\Sign-Language-Recognition-HMM\bin\Debug\Accord.Statistics.xml
 G:\GitHubKinect\Sign-Language-Recognition-HMM\Sign-Language-Recognition-HMM\obj\Debug\Sign-Language-Recognition-HMM.exe
 G:\GitHubKinect\Sign-Language-Recognition-HMM\Sign-Language-Recognition-HMM\obj\Debug\Sign-Language-Recognition-HMM.pdb
+G:\GitHubKinect\Sign-Language-Recognition-HMM\Sign-Language-Recognition-HMM\obj\Debug\Sign-Language-Recognition-HMM.csproj.GenerateResource.Cache
+G:\GitHubKinect\Sign-Language-Recognition-HMM\Sign-Language-Recognition-HMM\obj\Debug\Sign_Language_Recognition_HMM.Result.resources

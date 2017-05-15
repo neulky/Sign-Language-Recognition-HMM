@@ -11,7 +11,8 @@ namespace Sign_Language_Recognition_HMM.connect
     class Server
     {
         private Socket sSocket;
-        private Socket serverSocket;     
+        private Socket serverSocket;
+        private Socket serverSocket1;
 
         public void connect()
         {
@@ -27,6 +28,8 @@ namespace Sign_Language_Recognition_HMM.connect
             Console.WriteLine("监听已经打开，请等待");
 
             serverSocket = sSocket.Accept();        //建立连接
+            //serverSocket1 = sSocket.Accept();
+
             Console.WriteLine("连接已经建立");
             
         }
@@ -44,6 +47,20 @@ namespace Sign_Language_Recognition_HMM.connect
             recognize_seq = transitionFromStringToDouble(recStr);       //将接收到的的字符串转换为double[][]数组
             return recognize_seq;
         }
+
+        public double[][][] receiveMessage1()
+        {
+            double[][][] descriptor_seq;
+            string recStr = "";
+            byte[] recByte = new byte[65536];
+            int bytes = serverSocket.Receive(recByte, recByte.Length, 0);
+            recStr += Encoding.ASCII.GetString(recByte, 0, bytes);
+
+            //Console.WriteLine(recStr);
+            descriptor_seq = transitionFromStringToDouble(recStr);
+
+            return descriptor_seq;
+        }
         public void sendMessage(string sendStr)
         {
             byte[] sendByte = Encoding.UTF8.GetBytes(sendStr);
@@ -52,6 +69,8 @@ namespace Sign_Language_Recognition_HMM.connect
         public void Close()
         {
             serverSocket.Close();
+            //serverSocket1.Close();
+
             sSocket.Close();
         }
         public double[][][] transitionFromStringToDouble(string recStr)
@@ -93,6 +112,7 @@ namespace Sign_Language_Recognition_HMM.connect
                     for(int k = 0;k < sequences[i][j].Length;k++)
                     {
                         recSequence[i][j][k] = sequences[i][j][k];
+                        //Console.Write("{0} ",sequences[i][j][k]);
                     }
                 }
             }

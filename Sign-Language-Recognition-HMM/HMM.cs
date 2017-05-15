@@ -73,7 +73,7 @@ namespace Sign_Language_Recognition_HMM
             Console.WriteLine("{0} {1} ", a[0, 0], a[0, 1]);
             Console.WriteLine("{0} {1} ", a[1, 0], a[1, 1]);
 
-            string file = "G:\\GitHubKinect\\HMM_Model_3\\HMM_Model\\你\\righthand.txt";       //将训练得到的模型存入指定的文档中
+            string file = "G:\\GitHubKinect\\HMM_Model_3\\HMM_Model_Hog\\爸爸\\righthand.txt";       //将训练得到的模型存入指定的文档中
             SaveToFile(file, model);
 
             double likelihood = Math.Exp(teacher.LogLikelihood);
@@ -155,11 +155,13 @@ namespace Sign_Language_Recognition_HMM
                         {
                             Console.Write("{0} ", states0[i]);
                         }
+                        Console.WriteLine();
                         Console.WriteLine(Math.Exp(models[0].LogLikelihood(recognize_seq[0])));
                         for(int i = 0;i < states1.Length;i++)
                         {
                             Console.Write("{0} ", states1[i]);
                         }
+                        Console.WriteLine();
                         Console.WriteLine(Math.Exp(models[1].LogLikelihood(recognize_seq[1])));
                         
                     }
